@@ -26,14 +26,19 @@ const double INITIAL_A = 0;
 
 //----TRACKING ALGORITHM---
 void track(void* param){
-    // no need to have inside while loop—-this will become its own task later
+    // this will be used as a task later!
+    // get initial positions
+    while(true){
+
+       pros::delay(15);
+    }
 
 }
 
 /**
- * Returns the change in position for a plane component (x or y)
+ * Returns the change in position along an axis (x or y)
  * @param start Starting position along that axis
- * @return The change in position for a certain axis/component
+ * @return The change in position along a certain axis
  */
 double getPositionChange(double start){
 
