@@ -28,9 +28,22 @@ const double INITIAL_A = 0;
 void track(void* param){
     // this will be used as a task later!
     // get initial positions
+    // ASSUME ZERO FOR NOW
+    double x, y, theta = 0;
+    double x0, y0, theta0 = 0; 
+    double left0, right0, back0 = 0;    // tracking wheel positions
     while(true){
-
-       pros::delay(15);
+        // calculating positional values
+        theta = theta0 + degrees(getAngleChange(left0, right0));
+        // update variables for next cycle
+        x0 = x;
+        y0 = y;
+        theta0 = theta;
+        left0 = leftTrack.get_value();
+        right0 = rightTrack.get_value();
+        back0 = backTrack.get_value();
+        // delay to save CPU
+        pros::delay(5);  // 5 ms for big boi precision
     }
 
 }
