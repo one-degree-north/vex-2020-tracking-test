@@ -17,7 +17,7 @@ void initialize() {
 	// position tracking
 	pros::Task pos_tracking(
 		track,
-		(void*)"nyoom",
+		(void*)pros::millis(),
 		"Position Tracking"
 	);
 
