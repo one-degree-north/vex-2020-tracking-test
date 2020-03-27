@@ -8,32 +8,27 @@ const double CURVE_FACTOR_FAST = 0.787;
 const double CURVE_FACTOR_SLOW = 0.4;
 
 // HELPER FUNCTIONS
+/**
+ * Helper function to quickly set the velocities of left and right side motors
+ *
+ * @param left Velocity of left side
+ * @param right Velocity of right side
+ */
 void setDrive(int left, int right){
-  /**
-   * Helper function to quickly set the velocities of left and right side motors
-   *
-   * @param left
-   *      Velocity of left side
-   * @param right
-   *      Velocity of right side
-   */
   leftFront = left;
   leftBack = left;
   rightFront = right;
   rightBack = right;
 }
-
+/**
+ * Curves the velocity along an exponential curve
+ *
+ * @param x Velocity to be curved
+ * @param curve_factor Multiplier of entire curve function
+ * @return curved input if input is greater than the deadzone value or 0 if
+ * the value is less than the deadzone
+ */
 double driveCurve(int x, double curve_factor) {
-  /**
-   * Curves the velocity along an exponential curve
-   *
-   * @param x
-   *      Velocity to be curved
-   * @param curve_factor
-   *      Multiplier of entire curve function
-   * @return curved input if input is greater than the deadzone value or 0 if
-   * the value is less than the deadzone
-   */
   if(abs(x) > DEADZONE){
     int input = std::min((int)std::abs(x), MAX_VALUE);
     double output = (x/abs(x)) * ((curve_factor) *
@@ -45,11 +40,11 @@ double driveCurve(int x, double curve_factor) {
     return 0;
 }
 
+/**
+ * Outputs drive voltages to Brain screen using LCD emulator
+ */
 void printDrive(){
-  /**
-   * Outputs drive voltages to Brain screen using LCD emulator
-   *
-   */
+  
   int xVal = round(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
   int yVal = round(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
 
@@ -64,15 +59,15 @@ void printDrive(){
   pros::lcd::set_text(3, right);
 }
 
+/**
+ * Applies deadzone to joystick
+ *
+ * @param input The value of an analog joystick
+ * @return input if input is greater than the deadzone value or 0 if the value
+ *is less than the deadzone
+ */
 int round(int input){
-  /**
-   * Applies deadzone to joystick
-   *
-   * @param input
-   *      The value of an analog joystick
-   * @return input if input is greater than the deadzone value or 0 if the value
-   * is less than the deadzone
-   */
+  
   if(abs(input)>DEADZONE)
     return input;
   else
@@ -81,11 +76,11 @@ int round(int input){
 
 
 // AUTONOMOUS FUNCTIONS
+/**
+ * Resets drivebase motor encoders to 0
+ */
 void resetDriveMotors(){
-  /**
-   * Resets drivebase motor encoders to 0
-   *
-   */
+  
   leftFront.tare_position();
   leftBack.tare_position();
   rightFront.tare_position();
@@ -93,15 +88,14 @@ void resetDriveMotors(){
 }
 
 // CHANGE TO OKAPI CHASSIS PID LATER
+/**
+ * Autonomous function that drives the robot forward distance dist at speed voltage
+ * 
+ * @param dist Distance to be travelled (in inches)
+ * @param voltage Voltage drive motors to be set to
+ */
 void autoDrive(double dist, int voltage){
-  /**
-   * Autonomous function that drives the robot forward distance dist at speed voltage
-   * 
-   * @param dist
-   *      Distance to be travelled (in inches)
-   * @param voltage
-   *      Voltage drive motors to be set to
-   */
+  
   int dir = std::fabs(dist)/dist;
   // calc avg displacement
   double avg = leftFront.get_position() + leftBack.get_position() 
@@ -113,11 +107,10 @@ void autoDrive(double dist, int voltage){
 }
 
 // DRIVER CONTROL FUNCTIONS
+/**
+ * Sets the drive motors using joystick values (arcade mode)
+ */
 void setDriveMotors(){
-  /**
-   * Sets the drive motors using joystick values (arcade mode)
-   * 
-   */
   int xVal = round(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
   int yVal = round(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
 
