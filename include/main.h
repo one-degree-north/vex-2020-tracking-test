@@ -76,6 +76,7 @@ void opcontrol(void);
 #include "subsystemHeaders/globals.hpp"
 #include "subsystemHeaders/tracking.hpp"
 #include "subsystemHeaders/conversions.hpp"
+#include "subsystemHeaders/display.hpp"
 #include "pros/apix.h"
 #include <tuple>
 #endif

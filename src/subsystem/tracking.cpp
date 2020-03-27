@@ -32,9 +32,11 @@ void track(void* param){
     double x, y, theta = 0;
     double x0, y0, theta0 = 0; 
     double left0, right0, back0 = 0;    // tracking wheel positions
+    double delta_x, delta_y, delta_theta;
     while(true){
         // calculating positional values
-        theta = theta0 + degrees(getAngleChange(left0, right0));
+        delta_theta = degrees(getAngleChange(left0, right0));
+        theta = theta0 + delta_theta;
         // update variables for next cycle
         x0 = x;
         y0 = y;
@@ -43,7 +45,7 @@ void track(void* param){
         right0 = rightTrack.get_value();
         back0 = backTrack.get_value();
         // delay to save CPU
-        pros::delay(5);  // 5 ms for big boi precision
+        pros::delay(5);  // 5 ms for higher precision (max 10)
     }
 
 }
@@ -74,5 +76,5 @@ double getAngleChange(double L0, double R0){
  * @param y The y-coordinate of the robot on the playing field (in feet)
  */
 void printToScreen(double a, double x, double y){
-    // might relocate to another file dedicated to brain stuff
+    // POSSIBLY RELOCATE TO FILE DEDICATED TO BRAIN DISPLAY
 }
