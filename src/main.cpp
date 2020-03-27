@@ -70,6 +70,8 @@ void autonomous() {}
 void opcontrol() {
 
 	while (true) {
-		
+		printDrive();
+		setDriveMotors();
+		pros::delay(10);
 	}
 }
